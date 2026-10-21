@@ -8,6 +8,7 @@ public class Role
     public string Name { get; set; } = null!;
     public string Title { get; set; } = null!;
 
+    [JsonIgnore]
     public List<User> Users { get; set; } = new();
 }
 
@@ -24,7 +25,11 @@ public class User
     public int RoleId { get; set; }
 
     public Role? Role { get; set; }
+
+    [JsonIgnore]
     public List<Order> Orders { get; set; } = new();
+
+    [JsonIgnore]
     public List<Favorite> Favorites { get; set; } = new();
 }
 
@@ -34,6 +39,7 @@ public class Brand
     public string Name { get; set; } = null!;
     public string? Country { get; set; }
 
+    [JsonIgnore]
     public List<Clothing> Clothes { get; set; } = new();
 }
 
@@ -42,6 +48,7 @@ public class ClothingType
     public int Id { get; set; }
     public string Name { get; set; } = null!;
 
+    [JsonIgnore]
     public List<Clothing> Clothes { get; set; } = new();
 }
 
@@ -51,6 +58,7 @@ public class Color
     public string Name { get; set; } = null!;
     public string? HexCode { get; set; }
 
+    [JsonIgnore]
     public List<ClothingColor> ClothingColors { get; set; } = new();
 }
 
@@ -60,6 +68,7 @@ public class Size
     public string LetterSize { get; set; } = null!;
     public int NumericSize { get; set; }
 
+    [JsonIgnore]
     public List<ClothingSize> ClothingSizes { get; set; } = new();
 }
 
@@ -69,6 +78,7 @@ public class OrderStatus
     public string Name { get; set; } = null!;
     public string? Description { get; set; }
 
+    [JsonIgnore]
     public List<Order> Orders { get; set; } = new();
 }
 
@@ -85,8 +95,11 @@ public class Clothing
 
     public ClothingType? ClothingType { get; set; }
     public Brand? Brand { get; set; }
+
     public List<ClothingSize> ClothingSizes { get; set; } = new();
     public List<ClothingColor> ClothingColors { get; set; } = new();
+
+    [JsonIgnore]
     public List<Favorite> Favorites { get; set; } = new();
 }
 
@@ -96,7 +109,9 @@ public class ClothingColor
     public int ClothingId { get; set; }
     public int ColorId { get; set; }
 
+    [JsonIgnore]
     public Clothing? Clothing { get; set; }
+
     public Color? Color { get; set; }
 }
 
@@ -107,8 +122,12 @@ public class ClothingSize
     public int SizeId { get; set; }
     public int Quantity { get; set; }
 
+    [JsonIgnore]
     public Clothing? Clothing { get; set; }
+
     public Size? Size { get; set; }
+
+    [JsonIgnore]
     public List<OrderItem> OrderItems { get; set; } = new();
 }
 
@@ -121,7 +140,10 @@ public class Order
     public decimal TotalPrice { get; set; }
 
     public OrderStatus? OrderStatus { get; set; }
+
+    [JsonIgnore]
     public User? User { get; set; }
+
     public List<OrderItem> OrderItems { get; set; } = new();
 }
 
@@ -133,7 +155,9 @@ public class OrderItem
     public int Quantity { get; set; }
     public decimal Price { get; set; }
 
+    [JsonIgnore]
     public Order? Order { get; set; }
+
     public ClothingSize? ClothingSize { get; set; }
 }
 
@@ -144,6 +168,8 @@ public class Favorite
     public int ClothingId { get; set; }
     public DateTime AddedAt { get; set; }
 
+    [JsonIgnore]
     public User? User { get; set; }
+
     public Clothing? Clothing { get; set; }
 }
