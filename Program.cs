@@ -58,7 +58,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
-// ==================== АУТЕНТИФИКАЦИЯ ====================
 
 app.MapPost("/api/auth/register", async (ShopDbContext context, RegisterRequest request) =>
 {
@@ -121,7 +120,6 @@ app.MapGet("/api/me", (ClaimsPrincipal principal) =>
 }).RequireAuthorization();
 
 
-// ==================== ОДЕЖДА ====================
 
 // список всей одежды — доступен всем
 app.MapGet("/api/clothes", async (ShopDbContext context) =>
@@ -250,7 +248,6 @@ app.MapPut("/api/clothes/availability", async (ShopDbContext context, Availabili
 }).RequireAuthorization(policy => policy.RequireAuthenticatedUser().RequireRole("Manager"));
 
 
-// ==================== СКЛАД ====================
 
 app.MapGet("/api/stock/{clothingId}", async (ShopDbContext context, int clothingId) =>
 {
@@ -283,7 +280,6 @@ app.MapPut("/api/stock", async (ShopDbContext context, StockRequest request) =>
 }).RequireAuthorization(policy => policy.RequireAuthenticatedUser().RequireRole("Manager"));
 
 
-// ==================== ЗАКАЗЫ ====================
 
 // создание заказа — любой авторизованный
 app.MapPost("/api/orders", async (ShopDbContext context, ClaimsPrincipal principal, CreateOrderRequest request) =>
@@ -396,7 +392,6 @@ app.MapPut("/api/orders/status", async (ShopDbContext context, OrderStatusReques
 }).RequireAuthorization(policy => policy.RequireAuthenticatedUser().RequireRole("Manager"));
 
 
-// ==================== ИЗБРАННОЕ ====================
 
 app.MapGet("/api/favorites", async (ShopDbContext context, ClaimsPrincipal principal) =>
 {
@@ -455,7 +450,6 @@ app.MapDelete("/api/favorites/{clothingId}", async (ShopDbContext context, Claim
 app.Run();
 
 
-// ==================== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ====================
 
 string CreateToken(User user)
 {
@@ -482,7 +476,6 @@ int GetUserId(ClaimsPrincipal principal)
 }
 
 
-// ==================== КЛАССЫ ЗАПРОСОВ ====================
 
 public record RegisterRequest(string Login, string Password, string? Phone, string? Address);
 public record LoginRequest(string Login, string Password);
